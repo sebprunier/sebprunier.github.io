@@ -1,0 +1,110 @@
+---
+layout: post
+title: Devoxx France 2012 et Code Story
+date: 2011-12-16 15:52:51.000000000 +01:00
+categories:
+- Communautés
+- Fun
+tags:
+- devoxx
+- java
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '24226490'
+  _oembed_8a285ad08c78e6878a091a901f759bc5: "{{unknown}}"
+  _oembed_897917e965a9fcc7d5054350ab2c7af1: "{{unknown}}"
+author: 
+---
+<p>Votre société n'est pas sympa avec vous et vous ne savez toujours pas quoi demander au Père Noël ? J'ai une idée : votre place pour Devoxx France 2012 !</p>
+<p style="text-align:center;"><a href="http://sebprunier.files.wordpress.com/2011/12/devoxx_france_468_60.jpg"><img class="aligncenter size-full wp-image-220" title="devoxx_france_468_60" src="assets/devoxx_france_468_60.jpg" alt="" width="468" height="60" /></a></p>
+<p>A cette occasion (Devoxx hein, pas Noël :-)), <a href="http://twitter.com/dgageot" target="_blank">David Gageot</a> et <a href="http://twitter.com/morlhon" target="_blank">Jean-Laurent Morlhon</a> ont lancé <a href="http://www.code-story.net" target="_blank">Code Story</a>, un projet dont le but est de coder une application en direct pendant 2 jours, à Devoxx France !</p>
+<p>Nous en sommes actuellement aux phases de qualification, plus exactement la pré-sélection se termine aujourd'hui, vendredi 16 décembre ! L'occasion de faire un petit retour sur ma solution au premier exercice FooBarQix.</p>
+<p>Les liens à regarder :</p>
+<ul>
+<li>Le blog de David Gageot : <a href="http://blog.javabien.net/2011/11/17/codestory/">http://blog.javabien.net/2011/11/17/codestory/</a></li>
+<li>Le blog de Code Story : <a href="http://www.code-story.net/2011/11/16/foobarqix.html">http://www.code-story.net/2011/11/16/foobarqix.html</a></li>
+</ul>
+<p><!--more--></p>
+<h2>Pour ceux qui ne sont pas encore au courant ...</h2>
+<p>... voici le teaser de Devoxx France 2012 ! :-)</p>
+<p>[youtube http://www.youtube.com/watch?v=II6XiGGlJX0&amp;w=420&amp;h=315]</p>
+<p>Toutes les infos ici : <a href="http://www.devoxx.fr/">http://www.devoxx.fr</a> !</p>
+<h2>FooBarQix - ma solution pragmatique</h2>
+<p>Le problème de l'exercice est posé ici : <a href="http://www.code-story.net/2011/11/16/foobarqix.html">http://www.code-story.net/2011/11/16/foobarqix.html</a>. Extrait :</p>
+<blockquote><p><em>Ecrivez un programme qui affiche les nombres de 1 à 100. Un nombre par ligne. Respectez les règles suivantes :</em></p>
+<ul>
+<li><em>Si le nombre est divisible par 3 ou contient 3, écrire “Foo” à la place de 3.</em></li>
+<li><em>Si le nombre est divisible par 5 ou contient 5, écrire “Bar” à la place de 5.</em></li>
+<li><em>Si le nombre est divisible par 7 ou contient 7, écrire “Qix” à la place de 7.</em></li>
+</ul>
+</blockquote>
+<p>Une des consignes :</p>
+<blockquote><p><em>Soyez inventif, pragmatique, écrivez du code formidable, impressionnez nous, montrez que vous voulez venir coder avec nous.</em></p></blockquote>
+<p>En ce qui me concerne, j'ai fait <em>pragmatique</em> :-) Le problème est simple, donc pas la peine de chercher une solution compliquée ! J'ai donc fait un petit morceau de code Java, disponible ici : <a href="https://github.com/sebprunier/FooBarQix_Java/blob/master/src/fr/devoxx/foobarqix/FooBarQix.java">https://github.com/sebprunier/FooBarQix_Java/blob/master/src/fr/devoxx/foobarqix/FooBarQix.java</a></p>
+<p>Je ne suis pas sûr par contre de répondre à la consigne "<em>écrivez du code formidable</em>", et pas sûr non plus <em>d'impressionner</em> grand monde :-) C'est pas grave, j'assume !</p>
+<h4>Divisible par X</h4>
+<p>Pour savoir si un nombre N est divisible par un autre nombre M, il suffit simplement de vérifier que N modulo M = 0. Ce qui peut se retranscrire de cette manière en Java, dans le cadre de l'exercice (extrait de mon code) :</p>
+<p>[sourcecode language="java"]<br />
+private static final String[] INTEGER_PATTERNS = { &quot;&quot;, &quot;&quot;, &quot;&quot;, FOO, &quot;&quot;, BAR, &quot;&quot;, QIX, &quot;&quot;, &quot;&quot; };<br />
+private String transformModulo(int i, int modulo) {<br />
+    return i % modulo == 0 ? INTEGER_PATTERNS[modulo] : &quot;&quot;;<br />
+}[/sourcecode]</p>
+<h4>Contient X</h4>
+<p>Pour le remplacement des chiffres 3, 5, 7 par "Foo", "Bar", "Qix", on peut s'inspirer de la façon de faire précédente avec cette fois une Map associant les chaînes "Foo", "Bar" et "Qix" aux chiffres adéquats :</p>
+<p>[sourcecode language="java"]<br />
+// Patterns sorted by char ('0'-'9')<br />
+private static final Map CHAR_PATTERNS;<br />
+static {<br />
+    CHAR_PATTERNS = new HashMap();<br />
+    CHAR_PATTERNS.put('0', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('1', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('2', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('3', FOO);<br />
+    CHAR_PATTERNS.put('4', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('5', BAR);<br />
+    CHAR_PATTERNS.put('6', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('7', QIX);<br />
+    CHAR_PATTERNS.put('8', &quot;&quot;);<br />
+    CHAR_PATTERNS.put('9', &quot;&quot;);<br />
+}<br />
+[/sourcecode]</p>
+<p>&lt; Aparté &gt;Vivement les collection literals de Java 8 :-)&lt;/Aparté &gt;</p>
+<p>[sourcecode language="java"]<br />
+private String replace357(String s) {<br />
+    String res = &quot;&quot;;<br />
+    for (char c : s.toCharArray()) {<br />
+        res += CHAR_PATTERNS.get(c);<br />
+    }<br />
+    return res;<br />
+}<br />
+[/sourcecode]</p>
+<h4>Et pour finir ...</h4>
+<p>Maintenant que nous avons les méthodes de base, il ne reste qu'à tenir compte des priorités définies dans le jeu (diviseurs d'abord, ordre des chiffres) :</p>
+<p>[sourcecode language="java"]<br />
+protected String[] execute(int max) {<br />
+    String[] result = new String[max];<br />
+    for (int i = 1; i &lt;= max; i++) {<br />
+        String si = String.valueOf(i);<br />
+        String line = transformModulo(i, 3)<br />
+                    + transformModulo(i, 5)<br />
+                    + transformModulo(i, 7)<br />
+                    + replace357(si);<br />
+        result[i - 1] = &quot;&quot;.equals(line) ? si : line;<br />
+    }<br />
+}<br />
+[/sourcecode]</p>
+<p>Et le petit "main" qui va bien !</p>
+<p>[sourcecode language="java"]<br />
+public static void main(String[] args) {<br />
+    String[] result = new FooBarQix().execute(MAX);<br />
+    for (String s : result) {<br />
+        System.out.println(s);<br />
+    }<br />
+}<br />
+[/sourcecode]</p>
+<h2>Conclusion</h2>
+<p>Tout est ici : <a href="https://github.com/sebprunier/FooBarQix_Java">https://github.com/sebprunier/FooBarQix_Java</a> Il y a même un petit test unitaire :-)</p>
+<p>C'est <span style="text-decoration:underline;">une</span> façon de faire, en Java. Je suis sûr qu'on pouvait s'amuser un peu avec les langages fonctionnels, genre Scala ou les nouveaux à la mode. Il y sûrement beaucoup de participants qui ont du s'orienter en ce sens à mon avis ! On verra les solution retenues !</p>
+<p>Merci pour ce jeu en tout cas, et on attend avec impatience le "live coding" de Devoxx en avril ! Ca va déchirer, c'est sûr !! :-)</p>

@@ -1,0 +1,169 @@
+---
+layout: post
+title: Java 7 - Retour du Nantes JUG de novembre
+date: 2011-12-28 17:43:02.000000000 +01:00
+categories:
+- Communautés
+- Tutoriels
+tags:
+- fork-join
+- java
+- JUG
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '24226490'
+  _oembed_c3fc4cffdad1f4368651202d44a788b1: "{{unknown}}"
+  _oembed_3fd7cf18e0750084a7443af85adea70f: "{{unknown}}"
+  _oembed_a824f94b98e70e3e199ceff8e352c35d: "{{unknown}}"
+  _oembed_83ef89cbed0f1828aa80da366370fe07: "{{unknown}}"
+  _oembed_c5552ab18cc6e96cd93463761a54716e: "{{unknown}}"
+author: 
+---
+<div style="padding:5px 0 12px;">Le 3 novembre dernier, j'ai animé la session de présentation de Java 7 au JUG de Nantes. L'idée était de faire un JUG basé essentiellement sur des démos.</div>
+<div style="padding:5px 0 12px;">C'était ma toute première fois en tant que speaker ! :-) Il y a eu du bon et du moins bon, le principal était de se lancer !</div>
+<div style="padding:5px 0 12px;">L'objectif de cet article est de faire un petit zoom sur ce qui a été vu en live pendant la session et qui n'était pas prévu au départ dans la démo :</div>
+<div style="padding:5px 0 12px;">
+<ul>
+<li>Les améliorations apportées par l'instruction "try-with-resource" concernant le masquage des exceptions,</li>
+<li>Le "multicatch" avec des exceptions ayant une interface commune</li>
+<li>Un exemple simple d'utilisation du framework Fork/Join</li>
+</ul>
+</div>
+<div style="padding:5px 0 12px;">PS : les évolutions du langage (Coin Project) sont décrites dans <a href="http://sebprunier.wordpress.com/2011/09/30/java-7-les-nouveautes-dans-le-langage/">un de mes précédents articles</a>.</div>
+<div style="padding:5px 0 12px;"><a title="Par Joe Palrang (https://duke.dev.java.net/) [Voir la page pour la licence], via Wikimedia Commons" href="http://commons.wikimedia.org/wiki/File%3ADuke3D.png"><img class="aligncenter" src="assets/500px-Duke3D.png" alt="Duke3D" width="150" /></a></div>
+<div style="padding:5px 0 12px;"><!--more--></div>
+<h2 style="padding:5px 0 12px;">Try-with-resource et masquage d'exceptions</h2>
+<div style="padding:5px 0 12px;">Avant java 7, écrire du code avec une bonne gestion des exceptions (sans perte d'exceptions par exemple) était assez sportif, comme le montre cet article qui m'a été conseillé par <a href="https://twitter.com/#!/mboillod" target="_blank">Manuel Boillod</a> : <a href="http://tutorials.jenkov.com/java-exception-handling/exception-handling-templates.html">http://tutorials.jenkov.com/java-exception-handling/exception-handling-templates.html</a></div>
+<div style="padding:5px 0 12px;">La question m'a donc été posée lors de la démo sur la nouvelle instruction "try-with-resource" : "Vu qu'on n'écrit plus le bloc finally avec l'appel explicite de la méthode 'close()', que se passe-t-il si l'instruction 'try' lance une exception et le 'close()' également ? Perd-on l'exception d'origine levée dans le 'try' ?"</div>
+<div style="padding:5px 0 12px;">Réponse : et bien non ! (ce qui est plutôt rassurant au passage). Les exceptions masquées sont désormais conservées dans la stack.</div>
+<div style="padding:5px 0 12px;">Cf. l'API <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html" target="_blank">Throwable</a> de Java 7 :</div>
+<div style="padding:5px 0 12px;">
+<pre>-&gt; public final void addSuppressed(<a title="class in java.lang" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html">Throwable</a> exception)
+-&gt; public final <a title="class in java.lang" href="http://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html">Throwable</a>[] getSuppressed()</pre>
+</div>
+<p>Voici le petit morceau de code qui a été fait en live pour illustrer cela. Prenons une classe "AutoClosable" de test, dont les deux méthodes "connect()" et "close()" lancent des exceptions :</p>
+<p>[sourcecode language="java"]<br />
+public class MyResource implements AutoCloseable {</p>
+<p>    public void connect() throws IllegalArgumentException {<br />
+        throw new IllegalArgumentException(&quot;connect&quot;);<br />
+    }</p>
+<p>    @Override<br />
+    public void close() throws IllegalArgumentException {<br />
+        throw new IllegalArgumentException(&quot;close&quot;);<br />
+    }<br />
+}<br />
+[/sourcecode]</p>
+<p>Et utilisons cette classe dans un "main" avec la nouvelle instruction "try-with-resource" :</p>
+<p>[sourcecode language="java"]<br />
+public static void main(String[] args) {</p>
+<p>    try (MyResource res = new MyResource()) {<br />
+        res.connect();<br />
+    } catch (IllegalArgumentException e) {<br />
+        e.printStackTrace();<br />
+    }<br />
+}<br />
+[/sourcecode]</p>
+<p>Le résultat de l'exécution est le suivant :</p>
+<pre>java.lang.IllegalArgumentException: connect
+    at MyResource.connect(MyResource.java:4)
+    at Main.main(Main.java:6)
+    <span style="color:#ff0000;"><strong>Suppressed: java.lang.IllegalArgumentException: close</strong></span>
+        at MyResource.close(MyResource.java:10)
+        at Main.main(Main.java:7)</pre>
+<p>Quelques liens pour conclure sur ce point :</p>
+<ul>
+<li>Des explications sur le site officiel d'Oracle : <a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html#suppressed-exceptions">http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html#suppressed-exceptions</a></li>
+<li>La présentation de <a href="http://live.julien.ponge.info/java-7-au-jug-summercamp-2011" target="_blank">Julien Ponge</a> au JugSummerCamp 2011 : <a href="http://www.parleys.com/#st=5&amp;id=2671">http://www.parleys.com/#st=5&amp;id=2671</a></li>
+</ul>
+<h2 style="padding:5px 0 12px;">Multi Catch avec des exceptions ayant une interface commune</h2>
+<p>Autre petit morceau de code réalisé en live à propos des améliorations concernant les exceptions (multi catch, more precise rethrow). Il s'agit cette fois d'illustrer la meilleure analyse des flux au niveau de la gestion des exceptions.</p>
+<p>Imaginons une interface "IFinalcialException" commune à deux exceptions concrètes "FinancialException" et "FinancialException2" :</p>
+<p>[sourcecode language="java"]<br />
+public interface IFinancialException {<br />
+    public String getMyCode();<br />
+    public void setMyCode(String myCode);<br />
+}</p>
+<p>public class FinancialException extends Exception implements IFinancialException { ... }<br />
+public class FinancialException2 extends Exception implements IFinancialException { ... }<br />
+[/sourcecode]</p>
+<p>Dans un bloc "catch" multiple traitant les deux types d'exception "FinancialException" et "FinancialException2", il est possible d'accéder aux méthodes de l'interface commune aux deux exceptions :</p>
+<p>[sourcecode language="java"]<br />
+try {<br />
+    // ... do something here !<br />
+}<br />
+catch (FinancialException | FinancialException2 e) {<br />
+    logger.info(e.getMyCode());<br />
+    logger.log(Level.SEVERE, &quot;Error while ETL execution&quot;, e);<br />
+}<br />
+[/sourcecode]</p>
+<h2 style="padding:5px 0 12px;">Fork/Join</h2>
+<p>Le JUG a été également l'occasion de présenter très rapidement la nouvelle API fork/join de Java 7. L'exemple était simple et sans grand intérêt, mais a permis d'illustrer facilement le fonctionnement de l'API, en particulier :</p>
+<ul>
+<li>la classe "java.util.concurrent.RecursiveAction"</li>
+<li>la classe "java.util.concurrent.ForkJoinPool"</li>
+</ul>
+<p>Il s'agissait d'additionner le contenu d'une liste de nombres entiers, en programmant de façon parallèle en s'appuyant sur l'algorithme très simple proposé sur le <a href="http://docs.oracle.com/javase/tutorial/essential/concurrency/forkjoin.html" target="_blank">site d'oracle</a> :</p>
+<pre>if (my portion of the work is small enough)
+  do the work directly
+else
+  split my work into two pieces
+  invoke the two pieces and wait for the results</pre>
+<p>Ce qui donne la classe action suivante :</p>
+<p>[sourcecode language="java"]<br />
+public class ForkJoinCalculator extends RecursiveAction {</p>
+<p>    private static final long serialVersionUID = -9181212554873539763L;</p>
+<p>    private List&lt;Integer&gt; data;<br />
+    private Integer result = 0;</p>
+<p>    public ForkJoinCalculator(List&lt;Integer&gt; data) {<br />
+        this.data = data;<br />
+    }</p>
+<p>    @Override<br />
+    protected void compute() {<br />
+        // if (my portion of the work is small enough)<br />
+        // do the work directly<br />
+        int size = data.size();<br />
+        if (size == 1) {<br />
+            result = data.get(0);<br />
+            return;<br />
+        }</p>
+<p>        // else<br />
+        // split my work into two pieces<br />
+        ForkJoinCalculator c1 = new ForkJoinCalculator(data.subList(0, size / 2));<br />
+        ForkJoinCalculator c2 = new ForkJoinCaculator(data.subList(size / 2, size));</p>
+<p>        // invoke the two pieces and wait for the results<br />
+        invokeAll(c1, c2);<br />
+        result += c1.result;<br />
+        result += c2.result;<br />
+    }</p>
+<p>    public Integer getResult() {<br />
+        return result;<br />
+    }<br />
+}<br />
+[/sourcecode]</p>
+<p>Et le code permettant de démarrer le pool de threads :</p>
+<p>[sourcecode language="java"]<br />
+public static void main(String[] args) {<br />
+    ForkJoinCalculator c = new ForkJoinCalculator(Data.BIG_LIST);<br />
+    ForkJoinPool pool = new ForkJoinPool();<br />
+    pool.invoke(c);<br />
+    System.out.println(&quot;Result : &quot; + c.getResult());<br />
+}<br />
+[/sourcecode]</p>
+<p><strong>Je donnerai dans un futur article un autre exemple d'utilisation de fork-join plus utile : la résolution de l'étape 4 du <a href="http://sebprunier.wordpress.com/2011/12/05/dimanche-pluvieux-ippon-recrute-au-coin-du-feu/">jeu "Ippon Recrute"</a>, permettant la recherche d'un mot de passe par force brute.</strong></p>
+<h2 style="padding:5px 0 12px;">Les slides du JUG</h2>
+<div id="__ss_10021960" style="width:425px;">
+<p style="text-align:center;"><strong><a title="Nantes Jug - Java 7" href="http://www.slideshare.net/sebprunier/nantes-jug-java-7-10021960" target="_blank">Nantes Jug - Java 7</a></strong> [slideshare id=10021960&amp;w=425&amp;h=355&amp;sc=no]</p>
+<div style="text-align:center;padding:5px 0 12px;">View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/sebprunier" target="_blank">sebprunier</a></div>
+<div style="padding:5px 0 12px;">
+<h2>Le code des démos</h2>
+<div>Le code des démos est disponible sur GitHub :</div>
+<div>
+<ul>
+<li><a href="https://github.com/sebprunier/nantesjug-java7">https://github.com/sebprunier/nantesjug-java7</a></li>
+<li><a href="https://github.com/sebprunier/nantesjug-fork-join">https://github.com/sebprunier/nantesjug-fork-join</a></li>
+</ul>
+</div>
+</div>
+</div>
