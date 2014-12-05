@@ -13,6 +13,7 @@ status: publish
 type: post
 published: true
 author:
+comments: true
 ---
 
 La société "Ippon Technologies" a lancé vendredi soir dernier la deuxième version de son jeu de recrutement "Ippon Recrute" !

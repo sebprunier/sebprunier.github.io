@@ -11,6 +11,7 @@ tags:
 status: publish
 type: post
 published: true
+comments: true
 ---
 
 La conférence de la rentrée 2011 à ne pas manquer !

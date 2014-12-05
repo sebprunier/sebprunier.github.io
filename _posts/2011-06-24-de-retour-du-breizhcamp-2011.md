@@ -19,6 +19,7 @@ status: publish
 type: post
 published: true
 author:
+comments: true
 ---
 
 Vendredi dernier, le 17 juin 2011, a eu lieu le [BreizhCamp](http://www.breizhcamp.org/) à Rennes, premier - espérons-le - d'une longue série !

@@ -14,6 +14,7 @@ status: publish
 type: post
 published: true
 author:
+comments: true
 ---
 
 Du 12 au 16 septembre 2011, j'ai suivi à Paris une formation organisée par BonitaSoft :

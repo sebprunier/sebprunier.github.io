@@ -11,6 +11,7 @@ status: publish
 type: post
 published: true
 author:
+comments: true
 ---
 
 Le 28 juillet 2011, Oracle a officiellement annoncé la sortie de la version 7 de Java Standard Edition !

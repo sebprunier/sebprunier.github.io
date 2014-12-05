@@ -16,6 +16,7 @@ status: publish
 type: post
 published: true
 author:
+comments: true
 ---
 
 La startup rennaise vient de lancer une [offre d'annonce originale via l'eXpress Board](http://www.express-board.fr/offre-d-emploi/nous-recherchons-notre-futur-tech-lead-java/dc738ebc309ad01d0130ac69d47d0010). Pod Programming est à la recherche d'un **Architecte/Project Leader/Guru** pour la version Java de son framework.

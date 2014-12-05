@@ -12,9 +12,8 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '24226490'
-author: 
+author:
+comments: true
 ---
 
 Ce tutoriel illustre pas-à-pas une manière possible d'alimenter dynamiquement le contenu d'une liste déroulante (combobox proposant la liste des pays).
