@@ -19,7 +19,7 @@ author:
 
 Ce tutoriel illustre pas-à-pas une manière possible d'alimenter dynamiquement le contenu d'une liste déroulante (combobox proposant la liste des pays).
 
-![bonita-objectif]({{ site.url }}/assets/bonita-objectif.png)
+![bonita-objectif]({{ site.url }}/assets/2011-06-16/bonita-objectif.png)
 
 La démo a été réalisée avec la version 5.4.2 de Bonita Open Solution et permet d'illustrer :
 * l'utilisation du connecteur WebService de Bonita,
@@ -66,14 +66,14 @@ Le processus mis en oeuvre pour les besoins de la démo n'a - soyons clair - auc
 * choisir un pays (ici intervient la liste déroulante dans le pageflow)
 * afficher le pays choisi
 
-![bonita-process]({{ site.url }}/assets/bonita-process.png "bonita-process")
+![bonita-process]({{ site.url }}/assets/2011-06-16/bonita-process.png "bonita-process")
 
 Deux variables sont rattachées au processus :
 
 *   **listePays** : une variable "Objet Java" de type java.util.List, qui permet de stocker la liste des pays et qui servira à alimenter les valeurs de la combobox,
 *   **paysChoisi** : une variable de type "Texte" pour stocker le pays sélectionné dans la combobox.
 
-![bonita-variable-liste.png]({{ site.url }}/assets/bonita-variable-liste.png)]
+![bonita-variable-liste.png]({{ site.url }}/assets/2011-06-16/bonita-variable-liste.png)]
 
 ## La configuration du connecteur WebService
 
@@ -81,13 +81,13 @@ Deux variables sont rattachées au processus :
 
 Le connecteur utilisé est "Client Web Service", dans la catégorie "Web Services".
 
-![bonita-connecteurws.png]({{ site.url }}/assets/bonita-connecteurws.png)]
+![bonita-connecteurws.png]({{ site.url }}/assets/2011-06-16/bonita-connecteurws.png)]
 
 J'ai choisi d'ajouter le connecteur au niveau de l'activité "Choisir un pays". J'aurais pu tout aussi bien l'ajouter directement au niveau du processus. A vous de choisir en fonction de vos besoins.
 
 Le connecteur est activé dès l'entrée dans l'activité, afin que la liste des pays soit disponible pour le pageflow de saisie :
 
-![bonita-connecteurws-1.png]({{ site.url }}/assets/bonita-connecteurws-1.png)]
+![bonita-connecteurws-1.png]({{ site.url }}/assets/2011-06-16/bonita-connecteurws-1.png)]
 
 ### Configuration de l'appel WebService
 
@@ -104,7 +104,7 @@ La configuration de l'appel au webservice est basique. N'hésitez pas à utilise
 </soapenv:Envelope>
 {% endhighlight %}
 
-![bonita-connecteurws-2.png]({{ site.url }}/assets/bonita-connecteurws-2.png)]
+![bonita-connecteurws-2.png]({{ site.url }}/assets/2011-06-16/bonita-connecteurws-2.png)]
 
 ### Traitement du résultat
 
@@ -137,7 +137,7 @@ _(ah, ce bon vieux java comme dirait l'autre ... :-))_
 
 L'affectation du résultat du traitement dans la variable "listePays" se fait graphiquement :
 
-![bonita-connecteurws-3.png]({{ site.url }}/assets/bonita-connecteurws-3.png)]
+![bonita-connecteurws-3.png]({{ site.url }}/assets/2011-06-16/bonita-connecteurws-3.png)]
 
 A ce stade, la configuration du connecteur est terminée ! Passons à l'étape de création du pageflow.
 
@@ -147,11 +147,11 @@ Maintenant le reste, c'est du gâteau !
 
 Au niveau du pageflow de saisie de l'activité "Choisir un pays", il suffit simplement d'alimenter la combobox avec la variable "listePays" et de stocker la valeur choisie dans "paysChoisi" :
 
-![bonita-pageflow](assets/bonita-pageflow.png "bonita-pageflow")]
+![bonita-pageflow]({{ site.url }}/assets/2011-06-16/bonita-pageflow.png)
 
 Cette variable peut être réutilisée par la suite, par exemple dans le pageflow lié à l'activité "Afficher le pays choisi" :
 
-![bonita-pageflow-2]({{ site.url }}/assets/bonita-pageflow-2.png)]
+![bonita-pageflow-2]({{ site.url }}/assets/2011-06-16/bonita-pageflow-2.png)]
 
 ## Conclusion
 

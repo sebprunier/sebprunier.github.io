@@ -18,7 +18,7 @@ La conférence de la rentrée 2011 à ne pas manquer !
 Le cru 2010 était de qualité, alors pas de raison pour ne pas remettre le couvert en 2011 !
 Le vendredi 16 septembre 2011 a lieu le **JUG Summer Camp** à La Rochelle.
 
-![JugSummerCamp Logo]({{ site.url }}/assets/jugsummercamp2011.png)
+![JugSummerCamp Logo]({{ site.url }}/assets/2011-06-15/jugsummercamp2011.png)
 
 Déjà des thèmes et des speakers de choix ! Suivez le programme sur [www.jugsummercamp.org](http://www.jugsummercamp.org/edition/2)
 
