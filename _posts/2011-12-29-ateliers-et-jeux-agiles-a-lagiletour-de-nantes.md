@@ -68,7 +68,7 @@ Ah oui j'oubliais, le thème du jeu !
 
 Deux équipes : A et B. Objectif : faire un dessin à partir de spécifications dans un temps imparti (assez court, une minute de mémoire). Le besoin exprimé était le même pour les deux équipes : **"Dessiner une magnifique prairie d'été"**. Seules les spécifications du contenu de la prairie changeaient entre les deux équipes :
 
-![imag0687]({{ site.url }}/assets/2011-12-29/assets/imag0687.jpg)
+![imag0687]({{ site.url }}/assets/2011-12-29/imag0687.jpg)
 
 Que nous montre ce petit exercice ? Que l'on produit plus efficacement avec des spécifications simples, claires et surtout concises !
 
