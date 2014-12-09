@@ -4,7 +4,6 @@ title: Devoxx France 2012 et Code Story
 date: 2011-12-16 15:52:51.000000000 +01:00
 categories:
 - Communautés
-- Fun
 tags:
 - devoxx
 - java

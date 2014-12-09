@@ -3,7 +3,7 @@ layout: post
 title: Pod Programming cherche son "Java Architect/Project Leader/Guru" !
 date: 2011-07-01 11:22:07.000000000 +02:00
 categories:
-- News
+- Code
 tags:
 - cloudbees
 - expressboard

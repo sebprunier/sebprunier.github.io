@@ -3,8 +3,7 @@ layout: post
 title: Code Story - Concours pour Devoxx France 2013
 date: 2013-01-10 11:21:46.000000000 +01:00
 categories:
-- Communautés
-- Fun
+- Code
 tags:
 - CodeStory
 - DevoxxFR

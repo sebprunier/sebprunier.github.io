@@ -3,8 +3,7 @@ layout: post
 title: 'Java 7 : les nouveautés du langage'
 date: 2011-09-30 12:05:56.000000000 +02:00
 categories:
-- News
-- Veille
+- Code
 tags:
 - java
 status: publish

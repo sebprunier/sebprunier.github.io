@@ -3,8 +3,6 @@ layout: post
 title: Pimp My Bonita - Les astuces du jour
 date: 2012-02-24 18:51:48.000000000 +01:00
 categories:
-- Communautés
-- Fun
 - Tutoriels
 tags:
 - Bonita

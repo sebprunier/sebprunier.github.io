@@ -3,8 +3,7 @@ layout: post
 title: Dimanche pluvieux, "Ippon Recrute" au coin du feu !
 date: 2011-12-05 15:48:19.000000000 +01:00
 categories:
-- Fun
-- News
+- Code
 tags:
 - ippon
 - java

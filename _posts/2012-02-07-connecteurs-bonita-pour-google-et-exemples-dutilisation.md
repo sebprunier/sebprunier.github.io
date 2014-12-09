@@ -3,7 +3,6 @@ layout: post
 title: Connecteurs Bonita pour Google+ et exemples d'utilisation
 date: 2012-02-07 18:42:33.000000000 +01:00
 categories:
-- Communautés
 - Tutoriels
 tags:
 - Bonita

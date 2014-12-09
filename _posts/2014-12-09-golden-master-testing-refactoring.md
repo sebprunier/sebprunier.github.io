@@ -1,9 +1,8 @@
 ---
 layout: post
 title: Refactoring avec 1,22% de code couvert par les tests ... Golden Master testing à la rescousse !
-date: 2014-12-05
+date: 2014-12-09
 categories:
-- Code
 - Testing
 tags:
 - guava
@@ -121,4 +120,11 @@ Le test Golden Master couvre plus de 85% du code, le refactoring a donc pu se fa
 Les outils de couverture de code ont permis d'identifier précisément les scénarios non testés. Des tests manuels ont pu être menés pour vérifier la non régression sur ces scénarios précis.
 
 Inspiration : je me suis inspiré de la technique utilisé par [David Gageot](https://twitter.com/dgageot) lors de sa présentation [du legacy au cloud](https://www.youtube.com/watch?v=q11gydDAMSo).
+
+Je fais également ce soir une présentation de 10 min sur ce sujet aux [Human Talks de Nantes](http://humantalks.com/cities/nantes/events/181). Voici les slides :
+
+<div style="text-align: center;">
+    <iframe src="//www.slideshare.net/slideshow/embed_code/42517939" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+</div>
+
 

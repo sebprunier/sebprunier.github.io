@@ -3,8 +3,7 @@ layout: post
 title: Java 7 - Retour du Nantes JUG de novembre
 date: 2011-12-28 17:43:02.000000000 +01:00
 categories:
-- Communautés
-- Tutoriels
+- Code
 tags:
 - fork-join
 - java

@@ -4,7 +4,6 @@ title: 'De retour de #DevoxxFR 2012 !!'
 date: 2012-04-28 11:18:19.000000000 +02:00
 categories:
 - Communautés
-- News
 tags:
 - CodeStory
 - communautés

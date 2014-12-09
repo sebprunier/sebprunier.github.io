@@ -4,7 +4,6 @@ title: Connecteurs Google+ pour Bonita Open Solution
 date: 2011-10-03 09:54:39.000000000 +02:00
 categories:
 - Tutoriels
-- Veille
 tags:
 - Bonita
 - google+

@@ -4,7 +4,6 @@ title: JUG Summer Camp 2011
 date: 2011-06-15 17:32:48.000000000 +02:00
 categories:
 - Communautés
-- News
 tags:
 - JUG
 - JUGSummerCamp

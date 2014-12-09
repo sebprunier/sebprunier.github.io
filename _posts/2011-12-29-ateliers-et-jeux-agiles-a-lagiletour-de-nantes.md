@@ -4,7 +4,6 @@ title: Ateliers et jeux agiles à l'AgileTour de Nantes
 date: 2011-12-29 12:36:02.000000000 +01:00
 categories:
 - Communautés
-- Fun
 tags:
 - agiletour
 - agilité
